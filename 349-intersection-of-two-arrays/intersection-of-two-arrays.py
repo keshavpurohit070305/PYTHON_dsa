@@ -5,12 +5,22 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        seen = set(nums1)
-
+        nums1.sort()
+        nums2.sort()
+        
+        i = 0
+        j = 0
         res = []
-        for i in nums2:
-            if i in seen:
-                res.append(i)
-                seen.remove(i)
-
-        return res        
+        
+        while i < len(nums1) and j < len(nums2):
+            if nums1[i] == nums2[j]:
+                if not res or res[-1] != nums1[i]:
+                    res.append(nums1[i])
+                i += 1
+                j += 1
+            elif nums1[i] < nums2[j]:
+                i += 1
+            else:
+                j += 1
+                
+        return res
